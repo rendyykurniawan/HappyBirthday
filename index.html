@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            font-family: 'Georgia', serif;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .gift-container {
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .gift-box {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s;
+            border-radius: 10px;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .ribbon-h {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: #ffd700;
+            transform: translateY(-50%);
+        }
+
+        .ribbon-v {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 30px;
+            height: 100%;
+            background: #ffd700;
+            transform: translateX(-50%);
+        }
+
+        .bow {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 50px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .open-button {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #333;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+        }
+
+        .open-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+        }
+
+        .instruction {
+            color: white;
+            font-size: 20px;
+            margin-top: 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .letter-container {
+            max-width: 600px;
+            background: #fff;
+            padding: 50px 40px;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            display: none;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .letter-container.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .balloons {
+            position: absolute;
+            top: -30px;
+            right: -20px;
+            font-size: 40px;
+            animation: float-balloon 3s ease-in-out infinite;
+        }
+
+        @keyframes float-balloon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .letter-header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #f5576c;
+        }
+
+        .letter-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cake-icon {
+            font-size: 60px;
+            margin: 20px 0;
+            animation: rotate-cake 4s linear infinite;
+        }
+
+        @keyframes rotate-cake {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .date {
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .letter-body {
+            line-height: 1.8;
+            color: #333;
+            text-align: justify;
+        }
+
+        .greeting {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #f5576c;
+            font-weight: bold;
+        }
+
+        .content p {
+            margin-bottom: 15px;
+        }
+
+        .signature {
+            margin-top: 30px;
+            text-align: right;
+            font-style: italic;
+        }
+
+        .signature p {
+            margin: 5px 0;
+        }
+
+        .with-love {
+            color: #f5576c;
+            font-weight: bold;
+        }
+
+        .decorative-line {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #f5576c, transparent);
+            margin: 20px auto;
+        }
+
+        .floating-balloons {
+            position: fixed;
+            font-size: 30px;
+            animation: float-up 8s infinite;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+            animation: confetti-fall 3s linear;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f5576c;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 1;
+            transition: all 0.3s;
+        }
+
+        .close-button:hover {
+            background: #d64456;
+            transform: rotate(90deg);
+        }
+
+        .wish-highlight {
+            background: linear-gradient(135deg, #fff9c4, #ffeb3b);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #ffd700;
+            font-size: 18px;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="gift-container" id="giftContainer">
+        <div class="gift-box" onclick="openLetter()">
+            <div class="ribbon-h"></div>
+            <div class="ribbon-v"></div>
+            <div class="bow">🎀</div>
+        </div>
+        <button class="open-button" onclick="openLetter()">Buka Hadiah</button>
+        <p class="instruction">Klik untuk membuka hadiah spesial! 🎁</p>
+    </div>
+
+    <div class="letter-container" id="letterContainer">
+        <button class="close-button" onclick="closeLetter()">×</button>
+        <div class="balloons">🎈🎈🎈</div>
+        
+        <div class="letter-header">
+            <h1>Selamat Ulang Tahun!</h1>
+            <div class="cake-icon">🎂</div>
+            <div class="decorative-line"></div>
+            <p class="date">18 Desember 2025</p>
+        </div>
+
+        <div class="letter-body">
+            <p class="greeting">Untuk Orang yang Istimewa,</p>
+            
+            <div class="content">
+                <p>
+                    Hari ini adalah hari yang sangat spesial karena dunia dikaruniai seseorang yang 
+                    luar biasa seperti kamu! Selamat ulang tahun untuk orang yang selalu membawa 
+                    kebahagiaan dan senyuman ke dalam hidupku.
+                </p>
+                
+                <div class="wish-highlight">
+                    🌟 Semoga semua impian dan harapanmu menjadi kenyataan! 🌟
+                </div>
+                
+                <p>
+                    Di hari istimewa ini, aku ingin kamu tahu betapa berharganya kehadiranmu. 
+                    Kamu bukan hanya membuat hari-hariku lebih cerah, tapi juga mengajarkan 
+                    banyak hal tentang arti kebahagiaan dan ketulusan.
+                </p>
+                
+                <p>
+                    Terima kasih untuk setiap momen yang telah kita lalui bersama. Terima kasih 
+                    untuk setiap tawa, cerita, dan kenangan indah yang tak akan pernah terlupakan. 
+                    Kamu adalah hadiah terbaik dalam hidupku.
+                </p>
+                
+                <p>
+                    Di tahun baru kehidupanmu ini, semoga kamu selalu dikelilingi oleh cinta, 
+                    kebahagiaan, dan kesuksesan. Semoga setiap langkahmu diberkati, dan semua 
+                    yang kamu impikan dapat tercapai. Kamu layak mendapatkan semua hal terbaik 
+                    di dunia ini!
+                </p>
+
+                <p>
+                    Sekali lagi, selamat ulang tahun! Mari kita rayakan hari spesialmu dengan 
+                    penuh suka cita. Aku bersyukur bisa merayakan hari ini bersamamu. 
+                    Cheers untuk tahun yang lebih menakjubkan lagi! 🥳
+                </p>
+            </div>
+
+            <div class="signature">
+                <p class="with-love">Dengan Doa & Harapan Terbaik,</p>
+                <p>Yang Selalu Mendukungmu</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let balloonsInterval;
+        let confettiInterval;
+
+        function openLetter() {
+            document.getElementById('giftContainer').style.display = 'none';
+            document.getElementById('letterContainer').classList.add('show');
+            
+            // Confetti explosion
+            createConfetti();
+            
+            // Start floating balloons
+            balloonsInterval = setInterval(createFloatingBalloon, 2000);
+            
+            // Create initial balloons
+            for(let i = 0; i < 5; i++) {
+                setTimeout(createFloatingBalloon, i * 500);
+            }
+        }
+
+        function closeLetter() {
+            document.getElementById('letterContainer').classList.remove('show');
+            document.getElementById('giftContainer').style.display = 'block';
+            
+            // Stop floating balloons
+            clearInterval(balloonsInterval);
+            
+            // Remove existing floating balloons
+            const balloons = document.querySelectorAll('.floating-balloons');
+            balloons.forEach(balloon => balloon.remove());
+            
+            const confetti = document.querySelectorAll('.confetti');
+            confetti.forEach(c => c.remove());
+        }
+
+        function createFloatingBalloon() {
+            const balloonEmojis = ['🎈', '🎉', '🎊', '🎁', '✨', '🎀', '🎂'];
+            const balloon = document.createElement('div');
+            balloon.className = 'floating-balloons';
+            balloon.innerHTML = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
+            balloon.style.left = Math.random() * 100 + '%';
+            balloon.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            balloon.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(balloon);
+
+            setTimeout(() => {
+                balloon.remove();
+            }, 10000);
+        }
+
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#ffd93d', '#6bcf7f', '#a78bfa'];
+            
+            for(let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = -10 + 'px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 4000);
+                }, i * 30);
+            }
+        }
+    </script>
+</body>
+</html>
